@@ -56,7 +56,12 @@ class TestStudentDashboardUnenrollments(SharedModuleStoreTestCase):
         if self.cert_status is not None:
             return {
                 'status': self.cert_status,
-                'can_unenroll': self.cert_status not in DISABLE_UNENROLL_CERT_STATES
+                'can_unenroll': self.cert_status not in DISABLE_UNENROLL_CERT_STATES,
+                'certificate_message_viewable': True,
+                'grade': 100,
+                'show_disabled_download_button': False,
+                'show_download_url': False,
+                'show_survey_button': False
             }
         else:
             return {}
@@ -67,7 +72,7 @@ class TestStudentDashboardUnenrollments(SharedModuleStoreTestCase):
         ('processing', 1),
         (None, 1),
         ('generating', 0),
-        ('ready', 0),
+        ('downloadable', 0),
     )
     @ddt.unpack
     def test_unenroll_available(self, cert_status, unenroll_action_count):
@@ -85,7 +90,7 @@ class TestStudentDashboardUnenrollments(SharedModuleStoreTestCase):
         ('processing', 200),
         (None, 200),
         ('generating', 400),
-        ('ready', 400),
+        ('downloadable', 400),
     )
     @ddt.unpack
     @patch.object(CourseEnrollment, 'unenroll')
@@ -117,7 +122,7 @@ class TestStudentDashboardUnenrollments(SharedModuleStoreTestCase):
 
     def test_cant_unenroll_status(self):
         """ Assert that the dashboard loads when cert_status does not allow for unenrollment"""
-        with patch('certificates.models.certificate_status_for_student', return_value={'status': 'ready'}):
+        with patch('certificates.models.certificate_status_for_student', return_value={'status': 'downloadable'}):
             response = self.client.get(reverse('dashboard'))
 
             self.assertEqual(response.status_code, 200)
