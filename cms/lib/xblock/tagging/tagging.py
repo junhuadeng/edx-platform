@@ -28,6 +28,7 @@ class StructuredTagsAside(XBlockAside):
         """
         Return available tags
         """
+        # Import is placed here to avoid model import at project startup.
         from .models import TagCategories
         return TagCategories.objects.all()
 
