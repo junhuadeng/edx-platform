@@ -244,6 +244,7 @@ def create_modulestore_instance(
     """
     This will return a new instance of a modulestore given an engine and options
     """
+    # Import is placed here to avoid model import at project startup.
     import xblock.reference.plugins
 
     class_ = load_function(engine)

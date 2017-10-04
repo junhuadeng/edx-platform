@@ -243,6 +243,7 @@ def get_mock_request(user=None):
     """
     Create a request object for the user, if specified.
     """
+    # Import is placed here to avoid model import at project startup.
     from django.contrib.auth.models import AnonymousUser
     request = RequestFactory().get('/')
     if user is not None:

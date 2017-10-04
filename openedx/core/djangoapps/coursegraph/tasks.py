@@ -133,6 +133,7 @@ def get_course_last_published(course_key):
         text, or None, if there's no record of the last time this course
         was published.
     """
+    # Import is placed here to avoid model import at project startup.
     from openedx.core.djangoapps.content.course_structures.models import CourseStructure
     try:
         structure = CourseStructure.objects.get(course_id=course_key)
@@ -153,6 +154,7 @@ def serialize_course(course_id):
         nodes: a list of py2neo Node objects
         relationships: a list of py2neo Relationships objects
     """
+    # Import is placed here to avoid model import at project startup.
     from xmodule.modulestore.django import modulestore
 
     # create a location to node mapping we'll need later for
@@ -293,6 +295,7 @@ class ModuleStoreSerializer(object):
                 For example, ["course-v1:org+course+run"].
             skip: Also a list of string serializations of course keys.
         """
+        # Import is placed here to avoid model import at project startup.
         from xmodule.modulestore.django import modulestore
         if courses:
             course_keys = [CourseKey.from_string(course.strip()) for course in courses]

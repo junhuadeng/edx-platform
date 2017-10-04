@@ -188,6 +188,7 @@ def replace_static_urls(text, data_directory=None, course_id=None, static_asset_
             else:
                 # if not, then assume it's courseware specific content and then look in the
                 # Mongo-backed database
+                # Import is placed here to avoid model import at project startup.
                 from static_replace.models import AssetBaseUrlConfig, AssetExcludedExtensionsConfig
                 base_url = AssetBaseUrlConfig.get_base_url()
                 excluded_exts = AssetExcludedExtensionsConfig.get_excluded_extensions()

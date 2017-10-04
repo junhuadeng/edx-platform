@@ -24,6 +24,7 @@ def get_visible_courses(org=None, filter_=None):
         filter_ (dict): Optional parameter that allows custom filtering by
             fields on the course.
     """
+    # Import is placed here to avoid model import at project startup.
     from openedx.core.djangoapps.content.course_overviews.models import CourseOverview
 
     courses = []

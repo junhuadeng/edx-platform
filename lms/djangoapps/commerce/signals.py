@@ -28,6 +28,7 @@ def handle_refund_order(sender, course_enrollment=None, **kwargs):
     Signal receiver for unenrollments, used to automatically initiate refunds
     when applicable.
     """
+    # Import is placed here to avoid model import at project startup.
     from django.contrib.auth.models import AnonymousUser
     from openedx.core.djangoapps.commerce.utils import is_commerce_service_configured
 
@@ -83,6 +84,7 @@ def refund_seat(course_enrollment):
         exceptions.SlumberBaseException: for any unhandled HTTP error during communication with the E-Commerce Service.
         exceptions.Timeout: if the attempt to reach the commerce service timed out.
     """
+    # Import is placed here to avoid model import at project startup.
     from commerce.models import CommerceConfiguration
     from openedx.core.djangoapps.commerce.utils import ecommerce_api_client
 
