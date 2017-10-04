@@ -1117,9 +1117,7 @@ class CourseEnrollment(models.Model):
         if user.is_anonymous():
             return None
         try:
-            return cls.objects.select_related(
-                'course',
-            ).get(
+            return cls.objects.get(
                 user=user,
                 course_id=course_key
             )
