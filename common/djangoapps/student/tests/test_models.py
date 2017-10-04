@@ -138,13 +138,14 @@ class CourseEnrollmentTests(SharedModuleStoreTestCase):
     @factory.django.mute_signals(signals.post_save)
     def test_upgrade_deadline_with_schedule(self):
         """ The property should use either the CourseMode or related Schedule to determine the deadline. """
-        course_mode = CourseModeFactory(
-            course_id=self.course.id,
+        course = CourseFactory(self_paced=True)
+        CourseModeFactory(
+            course_id=course.id,
             mode_slug=CourseMode.VERIFIED,
             # This must be in the future to ensure it is returned by downstream code.
-            expiration_datetime=datetime.datetime.now(pytz.UTC) + datetime.timedelta(days=1)
+            expiration_datetime=datetime.datetime.now(pytz.UTC) + datetime.timedelta(days=1),
         )
-        enrollment = CourseEnrollmentFactory(course_id=self.course.id, mode=CourseMode.AUDIT)
+        enrollment = CourseEnrollmentFactory(course_id=course.id, mode=CourseMode.AUDIT)
 
         # The schedule's upgrade deadline should be used if a schedule exists
         DynamicUpgradeDeadlineConfiguration.objects.create(enabled=True)
