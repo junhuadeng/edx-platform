@@ -870,6 +870,14 @@ class CertificateGenerationCourseSetting(TimeStampedModel):
             u"certificate template."
         )
     )
+    include_hours_of_effort = models.BooleanField(
+        default=False,
+        help_text=(
+            u"Include estimated time to complete the course in the certificate rendering context. "
+            u"This attribute will only be displayed in certificates when there exists a template "
+            u"that includes Hours of Effort."
+        )
+    )
 
     class Meta(object):
         get_latest_by = 'created'
