@@ -953,6 +953,24 @@ class CertificateGenerationCourseSetting(TimeStampedModel):
             defaults=default
         )
 
+    @classmethod
+    def is_hours_of_effort_included_for_course(cls, course_key, ):
+        """Check wheterh hours of effort are meant to be included in a course's certificates
+
+        Arguments:
+            course_key (CourseKey): The identifier for the course.
+
+        Returns:
+            boolean
+
+        """
+        try:
+            latest = cls.objects.filter(course_key=course_key).latest()
+        except cls.DoesNotExist:
+            return False
+        else:
+            return latest.include_hours_of_effort
+
 
 class CertificateGenerationConfiguration(ConfigurationModel):
     """Configure certificate generation.

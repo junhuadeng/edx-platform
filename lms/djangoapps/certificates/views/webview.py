@@ -252,7 +252,7 @@ def _update_course_context(request, context, course, course_key, platform_name):
     # If language specific templates are enabled for the course, add course_run specific information to the context
     if CertificateGenerationCourseSetting.is_language_specific_templates_enabled_for_course(course_key):
         fields = ['content_language']
-        if CertificateGenerationCourseSetting.include_hours_of_effort(course_key):
+        if CertificateGenerationCourseSetting.is_hours_of_effort_included_for_course(course_key):
             fields.extend(['start', 'end', 'max_effort'])
         course_run_data = get_course_run_details(course_key, fields)
         if course_run_data.get('start') and course_run_data.get('end') and course_run_data.get('max_effort'):
