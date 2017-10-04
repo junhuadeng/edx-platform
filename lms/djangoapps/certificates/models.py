@@ -871,7 +871,7 @@ class CertificateGenerationCourseSetting(TimeStampedModel):
         )
     )
     include_hours_of_effort = models.BooleanField(
-        default=False,
+        default=True,
         help_text=(
             u"Include estimated time to complete the course in the certificate rendering context. "
             u"This attribute will only be displayed in certificates when there exists a template "

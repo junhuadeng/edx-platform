@@ -14,6 +14,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='certificategenerationcoursesetting',
             name='include_hours_of_effort',
-            field=models.BooleanField(default=False, help_text='Include estimated time to complete the course in the certificate rendering context. This attribute will only be displayed in certificates when there exists a template that includes Hours of Effort.'),
+            field=models.BooleanField(default=True, help_text='Include estimated time to complete the course in the certificate rendering context. This attribute will only be displayed in certificates when there exists a template that includes Hours of Effort.'),
         ),
     ]
