@@ -20,6 +20,7 @@ from course_modes.models import CourseMode, get_cosmetic_verified_display_price
 from lms.djangoapps.commerce.utils import EcommerceService
 from lms.djangoapps.verify_student.models import SoftwareSecurePhotoVerification, VerificationDeadline
 from openedx.core.djangoapps.certificates.api import can_show_certificate_available_date_field
+from openedx.core.djangoapps.content.course_overviews.models import CourseOverview
 from openedx.core.djangolib.markup import HTML, Text
 from openedx.features.course_experience import CourseHomeMessages, UPGRADE_DEADLINE_MESSAGE
 from student.models import CourseEnrollment
@@ -378,7 +379,7 @@ def verified_upgrade_deadline_link(user, course=None, course_id=None):
 
     ecommerce_service = EcommerceService()
     if ecommerce_service.is_enabled(user):
-        if course is not None:
+        if course is not None and isinstance(course, CourseOverview):
             course_mode = [
                 mode
                 for mode in course.modes
