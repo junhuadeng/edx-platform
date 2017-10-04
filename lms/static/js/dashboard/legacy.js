@@ -43,6 +43,11 @@
         // a `track` call whenever a bound link is clicked. Usually the page would change before
         // `track` had time to execute; `trackLink` inserts a small timeout to give the `track`
         // call enough time to fire. The clicked link element is passed to `generateProperties`.
+        // NOTE: This is a duplicate of the 'edx.course.enrollment.upgrade.clicked' event with
+        //  location learner_dashboard.  This bi event is being left in for now because:
+        //  1. I don't know who is relying on it and it is viewable separately in GA.
+        //  2. The other event doesn't yet have the benefit of the timeout of trackLink(), so
+        //     the other event might under-report as compared to this event.
          window.analytics.trackLink(upgradeButtonLinks, 'edx.bi.dashboard.upgrade_button.clicked', generateProperties);
 
         // Track clicks of the "verify now" button.
